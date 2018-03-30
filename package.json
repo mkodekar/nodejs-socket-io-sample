@@ -1,0 +1,19 @@
+{
+  "name": "notification-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "md5": "^2.2.1",
+    "mysql": "^2.15.0",
+    "nodemon": "^1.17.2",
+    "socket.io": "^2.0.4"
+  }
+}
