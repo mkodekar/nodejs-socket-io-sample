@@ -48,14 +48,12 @@ var pushService = (function () {
 
         pushMessage: function (userId, message) {
             var userConnections = connections[userId];
-            if (userConnections) {
-                for (var connectionId in userConnections) {
-                    var socket = userConnections[connectionId];
-                    if (socket != null) {
-                        console.log("socket is not null")
-                        socket.broadcast.emit('message', message);
-                        socket.emit('message', message);
-                    }
+            for (var connectionId in userConnections) {
+                var socket = userConnections[connectionId];
+                if (socket != null) {
+                    console.log("socket is not null")
+                    socket.broadcast.emit('message', message);
+                    socket.emit('message', message);
                 }
             }
         }
