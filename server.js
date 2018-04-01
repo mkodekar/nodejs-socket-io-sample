@@ -29,6 +29,7 @@ var pushService = (function () {
                 socket.userId = userId;
                 socket.connectionId = connectionId;
                 connections[userId][connectionId] = socket;
+                socket.emit('message', "Hello");
                 console.log('Registered socket for connection ' + connectionId.substring(0, 4) + '*** and  user ' + userId);
                 return true;
             } else {
@@ -47,7 +48,7 @@ var pushService = (function () {
         },
 
         pushMessage: function (userId, message) {
-            var userConnections = connections[userId];
+            var userConnections = connections[userId]
             for (var connectionId in userConnections) {
                 var socket = userConnections[connectionId];
                 if (socket != null) {
