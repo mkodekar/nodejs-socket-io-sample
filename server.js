@@ -63,6 +63,16 @@ var pushService = (function () {
 }());
 
 io.on('connection', function (socket) {
+
+    socket.on('connect', function() {
+        try {
+            console.log('socket connect');
+            socket.emit('configure', {email:myemail, deviceid:device_id});
+      
+         } catch(e) {
+           console.log(e);
+    })
+
     socket.on('register', function (userId, connectionId) {
         pushService.registerSocket(userId, connectionId, socket);
     });
