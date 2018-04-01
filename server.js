@@ -95,7 +95,7 @@ app.post('/api/notification/register', function (req, res) {
 
 app.post('/api/notification/push', function (req, res) {
     var message = req.body.message;
-    if (userId && message) {
+    if (message) {
         pushService.pushAll(message);
         res.status(200).send({
             success: 1,
