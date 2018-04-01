@@ -48,12 +48,13 @@ var pushService = (function () {
 
         pushMessage: function (userId, message) {
             var userConnections = connections[userId];
+            console.log("users: " + userConnections);
             if (userConnections) {
                 for (var connectionId in userConnections) {
                     if (userConnections.hasOwnProperty(connectionId)) {
                         var socket = userConnections[connectionId];
                         if (socket != null) {
-                            socket.broadcast.emit('message', message);
+                            socket.emit('message', message);
                         }
                     }
                 }
