@@ -50,11 +50,11 @@ var pushService = (function () {
             var userConnections = connections[userId];
             if (userConnections) {
                 for (var connectionId in userConnections) {
-                    if (userConnections.hasOwnProperty(connectionId)) {
-                        var socket = userConnections[connectionId];
-                        if (socket != null) {
-                            socket.broadcast.emit('message', message);
-                        }
+                    var socket = userConnections[connectionId];
+                    if (socket != null) {
+                        console.log("socket is not null")
+                        socket.broadcast.emit('message', message);
+                        socket.emit('message', message);
                     }
                 }
             }
@@ -64,14 +64,14 @@ var pushService = (function () {
 
 io.on('connection', function (socket) {
 
-    socket.on('connect', function() {
+    socket.on('connect', function () {
         try {
             console.log('socket connect');
-            socket.emit('configure', {email:myemail, deviceid:device_id});
-      
-         } catch(e) {
-           console.log(e);
-         }
+            socket.emit('configure', { email: myemail, deviceid: device_id });
+
+        } catch (e) {
+            console.log(e);
+        }
     });
 
     socket.on('register', function (userId, connectionId) {
@@ -117,6 +117,6 @@ app.post('/api/notification/push', function (req, res) {
         });
     }
 });
-http.listen(app.get('port'), function() {
+http.listen(app.get('port'), function () {
     console.log('Running on port', app.get('port'));
 });
