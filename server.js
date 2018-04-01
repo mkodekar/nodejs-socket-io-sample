@@ -53,15 +53,11 @@ var pushService = (function () {
                     if (userConnections.hasOwnProperty(connectionId)) {
                         var socket = userConnections[connectionId];
                         if (socket != null) {
-                            socket.emit('message', message);
+                            socket.broadcast.emit('message', message);
                         }
                     }
                 }
             }
-        },
-
-        pushAll: function(message) {
-            socket.emit('message', message);
         }
     }
 }());
@@ -94,9 +90,11 @@ app.post('/api/notification/register', function (req, res) {
 });
 
 app.post('/api/notification/push', function (req, res) {
+    var userId = req.body.userId;
     var message = req.body.message;
-    if (message) {
-        pushService.pushAll(message);
+
+    if (userId && message) {
+        pushService.pushMessage(userId, message);
         res.status(200).send({
             success: 1,
             message: 'Message sent to the the user'
