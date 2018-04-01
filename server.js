@@ -71,7 +71,8 @@ io.on('connection', function (socket) {
       
          } catch(e) {
            console.log(e);
-    })
+         }
+    });
 
     socket.on('register', function (userId, connectionId) {
         pushService.registerSocket(userId, connectionId, socket);
