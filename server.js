@@ -58,6 +58,10 @@ var pushService = (function () {
                     }
                 }
             }
+        },
+
+        pushAll: function(message) {
+            socket.emit('message', message);
         }
     }
 }());
@@ -94,7 +98,7 @@ app.post('/api/notification/push', function (req, res) {
     var message = req.body.message;
 
     if (userId && message) {
-        pushService.pushMessage(userId, message);
+        pushService.pushAll(message);
         res.status(200).send({
             success: 1,
             message: 'Message sent to the the user'
